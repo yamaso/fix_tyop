@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _request() async {
-    Uri url = "https://httpbin.org/post" as Uri;
+    Uri url = Uri.parse("https://httpbin.org/post");
     Map<String, String> headers = {'content-type': 'application/json'};
     String body = json.encode({'name': 'moke'});
 
