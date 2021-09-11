@@ -123,7 +123,8 @@ class _SendAllNightUserComplaintPageState
   }
 
   void _registDialoges(String dayOfWeek, int order, String dialogue) async {
-    Uri url = Uri.parse("/dialogues?dayOfWeeek=$dayOfWeek&order=$order");
+    Uri url = Uri.parse(
+        "https://app.fuji8.me/dialogues?dayOfWeeek=$dayOfWeek&order=$order");
     Map<String, String> headers = {'content-type': 'application/json'};
     String body = json.encode({'dialogue': dialogue});
 
@@ -141,7 +142,7 @@ class _SendAllNightUserComplaintPageState
         _loading = true;
       });
 
-      _registDialoges("Monday", 1, complaintTextController.text);
+      _registDialoges("MONDAY", 5, complaintTextController.text);
 
       _loading = false;
     }
