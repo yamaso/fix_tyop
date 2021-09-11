@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SleepPage(title: 'めいんページ'),
+      home: StartUpPage(title: 'めいんページ'),
     );
   }
 }
