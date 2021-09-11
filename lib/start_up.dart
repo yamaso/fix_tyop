@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'complainPage.dart';
 import 'services/background.dart';
 import 'services/outlinedButton.dart';
 import 'goto_bed.dart';
@@ -38,7 +39,14 @@ class _StartUpPageState extends State<StartUpPage>
                     (_) => false,
                   );
                 }),
-                getOutlinedButton(0x7a9cbaff, '寝ない', () {}),
+                getOutlinedButton(0x7a9cbaff, '寝ない', () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          SendAllNightUserComplaintPage(title: 'ComplaintPage'),
+                    ),
+                  );
+                }),
               ],
             ),
           ),
