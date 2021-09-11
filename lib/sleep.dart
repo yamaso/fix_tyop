@@ -26,9 +26,11 @@ class _SleepPageState extends State<SleepPage>
     time = DateTime.now();
     Future(() async {
       await _player.setAsset('assets/sleep.mp3');
-      await _player.setVolume(0.5);
+      await _player.setVolume(0.1);
       await _player.setLoopMode(LoopMode.one);
-      _player.play();
+      Timer(const Duration(seconds: 6), () {
+        _player.play();
+      });
       Timer.periodic(Duration(minutes: 45), (timer) async {
         await PlaySound.playSound("MONDAY", 1);
       });
@@ -42,7 +44,9 @@ class _SleepPageState extends State<SleepPage>
 
   void _onTimer(Timer timer) {
     var now = DateTime.now();
-    if (now.difference(widget.deadLine).inMinutes <= 60) {}
+    if (now.difference(widget.deadLine).inMinutes <= 60) {
+      print("アラーム");
+    }
     setState(() {
       time = now;
     });
@@ -86,10 +90,11 @@ class _SleepPageState extends State<SleepPage>
                   'デッドライン【' +
                       widget.deadLine.hour.toString() +
                       '：' +
-                      widget.deadLine.minute.toString(),
+                      widget.deadLine.minute.toString() +
+                      '】',
                   style: TextStyle(
                     color: Colors.white38,
-                    fontSize: 25,
+                    fontSize: 15,
                     fontWeight: FontWeight.w500,
                   ),
                 )
@@ -108,5 +113,13 @@ class _SleepPageState extends State<SleepPage>
       currentTime: _currentTime,
       locale: LocaleType.jp,
     ).then((time) => time ?? _currentTime);
+  }
+
+  @override
+  void dispose() {
+    _player.stop();
+    _player.dispose();
+    animationController.dispose();
+    super.dispose();
   }
 }

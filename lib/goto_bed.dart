@@ -3,6 +3,7 @@ import 'package:fix_tyop/sleep.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fix_tyop/playSound.dart';
+import 'package:page_transition/page_transition.dart';
 
 class GoToSleepPage extends StatefulWidget {
   GoToSleepPage({Key? key, required this.title}) : super(key: key);
@@ -77,10 +78,12 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                     onPressed: () async {
                       await PlaySound.playSound("MONDAY", 0);
                       Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => SleepPage(deadLine: time)),
-                        (_) => false,
-                      );
+                          PageTransition(
+                            child: SleepPage(deadLine: time),
+                            type: PageTransitionType.fade,
+                            duration: const Duration(milliseconds: 4000),
+                          ),
+                          (_) => false);
                     },
                   ),
                   SizedBox(height: 100.0),
@@ -120,5 +123,11 @@ class _GoToSleepPageState extends State<GoToSleepPage>
       currentTime: _currentTime,
       locale: LocaleType.jp,
     ).then((time) => time ?? _currentTime);
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 }
