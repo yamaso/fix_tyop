@@ -24,14 +24,14 @@ class _SleepPageState extends State<SleepPage>
     super.initState();
     time = DateTime.now();
     Future(() async {
-      _player.play('sleep.mp3', isLocal: true, volume: 0.5);
+      await _player.play('sleep.mp3', isLocal: true, volume: 0.5);
+      Timer.periodic(Duration(minutes: 45), (timer) {});
     });
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
     )..repeat(reverse: true);
     Timer.periodic(Duration(seconds: 30), _onTimer);
-    Timer.periodic(Duration(minutes: 45), (timer) {});
   }
 
   void _onTimer(Timer timer) {

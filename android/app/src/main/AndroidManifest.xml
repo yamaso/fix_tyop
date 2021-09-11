@@ -1,9 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fix_tyop">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
         android:label="fix_tyop"
-       android:icon="@mipmap/ic_launcher"
-       android:usesCleartextTraffic="true">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -39,5 +40,4 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

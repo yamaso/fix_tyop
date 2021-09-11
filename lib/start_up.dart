@@ -31,7 +31,12 @@ class _StartUpPageState extends State<StartUpPage>
                   child: Text('Title的な'),
                 ),
                 getOutlinedButton(0x7a9cbaff, '寝る', () {
-                  GoToSleepPage(title: 'GoToSleep');
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            GoToSleepPage(title: 'GoToSleep')),
+                    (_) => false,
+                  );
                 }),
                 getOutlinedButton(0x7a9cbaff, '寝ない', () {}),
               ],
