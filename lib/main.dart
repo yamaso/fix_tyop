@@ -1,5 +1,5 @@
-import 'package:fix_tyop/test.dart';
 import 'package:flutter/material.dart';
+import 'goto_bed.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,8 +12,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: GoToSleepPage(title: 'めいんページ'),
     );
   }
 }
