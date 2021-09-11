@@ -6,9 +6,9 @@ import 'package:fix_tyop/playSound.dart';
 import 'package:just_audio/just_audio.dart';
 
 class SleepPage extends StatefulWidget {
-  SleepPage({Key? key, required this.title}) : super(key: key);
+  SleepPage({Key? key, required this.deadLine}) : super(key: key);
 
-  final String title;
+  final DateTime deadLine;
 
   @override
   _SleepPageState createState() => _SleepPageState();
@@ -42,6 +42,7 @@ class _SleepPageState extends State<SleepPage>
 
   void _onTimer(Timer timer) {
     var now = DateTime.now();
+    if (now.difference(widget.deadLine).inMinutes <= 60) {}
     setState(() {
       time = now;
     });
@@ -81,6 +82,17 @@ class _SleepPageState extends State<SleepPage>
                     fit: BoxFit.cover,
                   ),
                 ),
+                Text(
+                  'デッドライン【' +
+                      widget.deadLine.hour.toString() +
+                      '：' +
+                      widget.deadLine.minute.toString(),
+                  style: TextStyle(
+                    color: Colors.white38,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )
               ],
             ),
           ),

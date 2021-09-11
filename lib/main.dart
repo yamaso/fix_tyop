@@ -1,6 +1,7 @@
 import 'package:fix_tyop/sleep.dart';
 import 'package:flutter/material.dart';
 import 'get_up.dart';
+import 'goto_bed.dart';
 import 'start_up.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: GetUpPage(title: 'めいんページ'),
+      home: StartUpPage(title: 'めいんページ'),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:fix_tyop/services/background.dart';
+import 'package:fix_tyop/sleep.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fix_tyop/playSound.dart';
@@ -15,13 +16,12 @@ class GoToSleepPage extends StatefulWidget {
 class _GoToSleepPageState extends State<GoToSleepPage>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  late DateTime time;
+  late DateTime time = DateTime.now();
   late PlaySound ps;
 
   @override
   void initState() {
     super.initState();
-    time = DateTime.now();
     ps = PlaySound();
     animationController = AnimationController(
       vsync: this,
@@ -41,13 +41,20 @@ class _GoToSleepPageState extends State<GoToSleepPage>
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    time.hour.toString() + '：' + time.minute.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontWeight: FontWeight.w800,
+                  SizedBox(width: 20),
+                  GestureDetector(
+                    child: Text(
+                      time.hour.toString() + '：' + time.minute.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 45,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
+                    onTap: () async {
+                      time = await timer(context, time);
+                      setState(() {});
+                    },
                   ),
                   SizedBox(height: 100.0),
                   ElevatedButton(
@@ -69,12 +76,17 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                     ),
                     onPressed: () async {
                       await PlaySound.playSound("MONDAY", 0);
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => SleepPage(deadLine: time)),
+                        (_) => false,
+                      );
                     },
                   ),
                   SizedBox(height: 100.0),
                 ],
               ),
-              SizedBox(width: 40),
+              SizedBox(width: 20),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -88,7 +100,7 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                     child: Image.asset(
                       'images/aoi_a.png',
                       width: 150,
-                      height: 480,
+                      height: 500,
                       fit: BoxFit.cover,
                     ),
                   ),
