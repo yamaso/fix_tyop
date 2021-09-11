@@ -1,7 +1,9 @@
 import 'package:fix_tyop/services/background.dart';
+import 'package:fix_tyop/sleep.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fix_tyop/playSound.dart';
+import 'package:page_transition/page_transition.dart';
 
 class GoToSleepPage extends StatefulWidget {
   GoToSleepPage({Key? key, required this.title}) : super(key: key);
@@ -15,13 +17,12 @@ class GoToSleepPage extends StatefulWidget {
 class _GoToSleepPageState extends State<GoToSleepPage>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  late DateTime time;
+  late DateTime time = DateTime.now();
   late PlaySound ps;
 
   @override
   void initState() {
     super.initState();
-    time = DateTime.now();
     ps = PlaySound();
     animationController = AnimationController(
       vsync: this,
@@ -39,15 +40,41 @@ class _GoToSleepPageState extends State<GoToSleepPage>
           Row(
             children: [
               Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(height: 300),
                   Text(
-                    time.hour.toString() + '：' + time.minute.toString(),
+                    '起きるデッドラインの設定',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontWeight: FontWeight.w800,
+                      color: Colors.white70,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
                     ),
+                  ),
+                  SizedBox(height: 10),
+                  GestureDetector(
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white38),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Text(
+                          time.hour.toString() + '：' + time.minute.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ),
+                    onTap: () async {
+                      time = await timer(context, time);
+                      setState(() {});
+                    },
                   ),
                   SizedBox(height: 100.0),
                   ElevatedButton(
@@ -69,12 +96,19 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                     ),
                     onPressed: () async {
                       await PlaySound.playSound("MONDAY", 0);
+                      Navigator.of(context).pushAndRemoveUntil(
+                          PageTransition(
+                            child: SleepPage(deadLine: time),
+                            type: PageTransitionType.fade,
+                            duration: const Duration(milliseconds: 4000),
+                          ),
+                          (_) => false);
                     },
                   ),
                   SizedBox(height: 100.0),
                 ],
               ),
-              SizedBox(width: 40),
+              SizedBox(width: 10),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -87,8 +121,8 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                     ),
                     child: Image.asset(
                       'images/aoi_a.png',
-                      width: 150,
-                      height: 480,
+                      width: 180,
+                      height: 580,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -108,5 +142,11 @@ class _GoToSleepPageState extends State<GoToSleepPage>
       currentTime: _currentTime,
       locale: LocaleType.jp,
     ).then((time) => time ?? _currentTime);
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 }

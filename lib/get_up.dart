@@ -47,11 +47,12 @@ class _GetUpPageState extends State<GetUpPage>
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  SizedBox(width: 20),
                   Text(
                     time.hour.toString() + '：' + time.minute.toString(),
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 50,
+                      fontSize: 45,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -80,7 +81,7 @@ class _GetUpPageState extends State<GetUpPage>
                   SizedBox(height: 100.0),
                 ],
               ),
-              SizedBox(width: 40),
+              SizedBox(width: 20),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

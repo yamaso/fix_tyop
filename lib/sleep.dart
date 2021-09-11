@@ -6,9 +6,9 @@ import 'package:fix_tyop/playSound.dart';
 import 'package:just_audio/just_audio.dart';
 
 class SleepPage extends StatefulWidget {
-  SleepPage({Key? key, required this.title}) : super(key: key);
+  SleepPage({Key? key, required this.deadLine}) : super(key: key);
 
-  final String title;
+  final DateTime deadLine;
 
   @override
   _SleepPageState createState() => _SleepPageState();
@@ -20,17 +20,29 @@ class _SleepPageState extends State<SleepPage>
   late DateTime time;
   AudioPlayer _player = AudioPlayer();
 
+  var aoi = 'images/aoi_n_sleep.png';
+
   @override
   void initState() {
     super.initState();
     time = DateTime.now();
     Future(() async {
       await _player.setAsset('assets/sleep.mp3');
-      await _player.setVolume(0.5);
+      await _player.setVolume(0.1);
       await _player.setLoopMode(LoopMode.one);
-      _player.play();
-      Timer.periodic(Duration(minutes: 45), (timer) async {
+      Timer(const Duration(seconds: 6), () {
+        _player.play();
+      });
+      Timer.periodic(Duration(seconds: 20), (timer) async {
         await PlaySound.playSound("MONDAY", 1);
+        setState(() {
+          aoi = 'images/aoi_e_sleep.png';
+        });
+        Timer(const Duration(seconds: 2), () {
+          setState(() {
+            aoi = 'images/aoi_n_sleep.png';
+          });
+        });
       });
     });
     animationController = AnimationController(
@@ -42,6 +54,9 @@ class _SleepPageState extends State<SleepPage>
 
   void _onTimer(Timer timer) {
     var now = DateTime.now();
+    if (now.difference(widget.deadLine).inMinutes <= 60) {
+      print("アラーム");
+    }
     setState(() {
       time = now;
     });
@@ -66,7 +81,7 @@ class _SleepPageState extends State<SleepPage>
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                SizedBox(height: 60),
+                SizedBox(height: 40),
                 ScaleTransition(
                   scale: animationController.drive(
                     Tween<double>(
@@ -75,12 +90,25 @@ class _SleepPageState extends State<SleepPage>
                     ),
                   ),
                   child: Image.asset(
-                    'images/aoi_n_sleep.png',
+                    aoi,
                     width: 200,
                     height: 500,
                     fit: BoxFit.cover,
                   ),
                 ),
+                SizedBox(height: 20),
+                Text(
+                  'デッドライン【' +
+                      widget.deadLine.hour.toString() +
+                      '：' +
+                      widget.deadLine.minute.toString() +
+                      '】',
+                  style: TextStyle(
+                    color: Colors.white38,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )
               ],
             ),
           ),
@@ -96,5 +124,13 @@ class _SleepPageState extends State<SleepPage>
       currentTime: _currentTime,
       locale: LocaleType.jp,
     ).then((time) => time ?? _currentTime);
+  }
+
+  @override
+  void dispose() {
+    _player.stop();
+    _player.dispose();
+    animationController.dispose();
+    super.dispose();
   }
 }
