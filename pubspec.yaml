@@ -1,3 +1,4 @@
+
 name: fix_tyop
 description: A new Flutter application for SPAJAM
 
@@ -30,6 +31,8 @@ dependencies:
   http: ^0.13.3
   lottie: ^1.1.0
   flutter_datetime_picker: ^1.5.1
+  just_audio: ^0.9.11
+  path_provider: ^2.0.3
 
 
 dev_dependencies:
