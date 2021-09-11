@@ -6,9 +6,9 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fix_tyop/playSound.dart';
 
 class GetUpPage extends StatefulWidget {
-  GetUpPage({Key? key, required this.title}) : super(key: key);
+  GetUpPage({Key? key, required this.deadLine}) : super(key: key);
 
-  final String title;
+  final DateTime deadLine;
 
   @override
   _GetUpPageState createState() => _GetUpPageState();

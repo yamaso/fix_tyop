@@ -1,3 +1,4 @@
+import 'package:fix_tyop/services/alert_dialog.dart';
 import 'package:fix_tyop/services/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -52,10 +53,11 @@ class _SleepPageState extends State<SleepPage>
     Timer.periodic(Duration(seconds: 30), _onTimer);
   }
 
-  void _onTimer(Timer timer) {
+  void _onTimer(Timer timer) async {
     var now = DateTime.now();
     if (now.difference(widget.deadLine).inMinutes <= 60) {
-      print("アラーム");
+      _player.stop();
+      AlermDialog.show(context, widget.deadLine);
     }
     setState(() {
       time = now;
@@ -117,18 +119,8 @@ class _SleepPageState extends State<SleepPage>
     );
   }
 
-  static Future<DateTime> timer(BuildContext context, DateTime _currentTime) {
-    return DatePicker.showTimePicker(
-      context,
-      showSecondsColumn: false,
-      currentTime: _currentTime,
-      locale: LocaleType.jp,
-    ).then((time) => time ?? _currentTime);
-  }
-
   @override
   void dispose() {
-    _player.stop();
     _player.dispose();
     animationController.dispose();
     super.dispose();
