@@ -68,10 +68,10 @@ class _GetUpPageState extends State<GetUpPage>
                         ),
                       ),
                     ),
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<CircleBorder>(
-                        CircleBorder(),
-                      ),
+                    style: ElevatedButton.styleFrom(
+                      onPrimary: Colors.black,
+                      shape: const CircleBorder(),
+                      elevation: 10.0,
                     ),
                     onPressed: () async {
                       await PlaySound.playSound("MONDAY", 0);
