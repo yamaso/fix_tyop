@@ -24,7 +24,7 @@ class _SleepPageState extends State<SleepPage>
     super.initState();
     time = DateTime.now();
     Future(() async {
-      await _player.play('sleep.mp3', isLocal: true, volume: 0.5);
+      await _player.play('sleep.mp3', isLocal: true, volume: 1.0);
       Timer.periodic(Duration(minutes: 45), (timer) {});
     });
     animationController = AnimationController(
