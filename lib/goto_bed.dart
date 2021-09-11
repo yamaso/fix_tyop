@@ -13,7 +13,6 @@ class GoToSleepPage extends StatefulWidget {
 class _GoToSleepPageState extends State<GoToSleepPage>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  late AnimationController animationController2;
   late DateTime time;
 
   @override
@@ -22,11 +21,7 @@ class _GoToSleepPageState extends State<GoToSleepPage>
     time = DateTime.now();
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3000),
-    )..repeat(reverse: true);
-    animationController2 = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 2000),
     )..repeat(reverse: true);
   }
 
@@ -40,26 +35,21 @@ class _GoToSleepPageState extends State<GoToSleepPage>
       body: Row(
         children: [
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
                 time.hour.toString() + '：' + time.minute.toString(),
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 40,
+                  fontSize: 50,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
-              SizedBox(height: 20.0),
-              ScaleTransition(
-                scale: animationController2.drive(
-                  Tween<double>(
-                    begin: 1,
-                    end: 1.10,
-                  ),
-                ),
+              SizedBox(height: 100.0),
+              ElevatedButton(
                 child: Container(
-                  width: 100,
-                  height: 100,
+                  width: 150,
+                  height: 150,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
@@ -67,28 +57,32 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                       image: AssetImage("images/sleep_button.png"),
                     ),
                   ),
-                  child: ElevatedButton(
-                    child: Text(''),
-                    onPressed: () {},
+                ),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<CircleBorder>(
+                    CircleBorder(),
                   ),
                 ),
+                onPressed: () {},
               ),
+              SizedBox(height: 100.0),
             ],
           ),
+          SizedBox(width: 40),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ScaleTransition(
                 scale: animationController.drive(
                   Tween<double>(
-                    begin: 1,
-                    end: 1.10,
+                    begin: 1.0,
+                    end: 1.05,
                   ),
                 ),
                 child: Image.asset(
                   'images/aka_a.png',
-                  width: 100,
-                  height: 300,
+                  width: 150,
+                  height: 480,
                   fit: BoxFit.cover,
                 ),
               ),
