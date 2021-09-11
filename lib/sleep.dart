@@ -27,8 +27,9 @@ class _SleepPageState extends State<SleepPage>
     Future(() async {
       await _player.setAsset('assets/sleep.mp3');
       await _player.setVolume(0.5);
+      await _player.setLoopMode(LoopMode.one);
       _player.play();
-      Timer.periodic(Duration(seconds: 30), (timer) async {
+      Timer.periodic(Duration(minutes: 45), (timer) async {
         await PlaySound.playSound("MONDAY", 1);
       });
     });
