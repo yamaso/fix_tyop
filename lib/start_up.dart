@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'services/background.dart';
 import 'services/outlinedButton.dart';
+import 'goto_bed.dart';
 
 class StartUpPage extends StatefulWidget {
   StartUpPage({Key? key, required this.title}) : super(key: key);
@@ -29,7 +30,9 @@ class _StartUpPageState extends State<StartUpPage>
                   ),
                   child: Text('Title的な'),
                 ),
-                getOutlinedButton(0x7a9cbaff, '寝る', () {}),
+                getOutlinedButton(0x7a9cbaff, '寝る', () {
+                  GoToSleepPage(title: 'GoToSleep');
+                }),
                 getOutlinedButton(0x7a9cbaff, '寝ない', () {}),
               ],
             ),
