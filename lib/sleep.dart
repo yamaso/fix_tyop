@@ -20,6 +20,8 @@ class _SleepPageState extends State<SleepPage>
   late DateTime time;
   AudioPlayer _player = AudioPlayer();
 
+  var aoi = 'images/aoi_n_sleep.png';
+
   @override
   void initState() {
     super.initState();
@@ -31,8 +33,16 @@ class _SleepPageState extends State<SleepPage>
       Timer(const Duration(seconds: 6), () {
         _player.play();
       });
-      Timer.periodic(Duration(minutes: 45), (timer) async {
+      Timer.periodic(Duration(seconds: 20), (timer) async {
         await PlaySound.playSound("MONDAY", 1);
+        setState(() {
+          aoi = 'images/aoi_e_sleep.png';
+        });
+        Timer(const Duration(seconds: 2), () {
+          setState(() {
+            aoi = 'images/aoi_n_sleep.png';
+          });
+        });
       });
     });
     animationController = AnimationController(
@@ -80,7 +90,7 @@ class _SleepPageState extends State<SleepPage>
                     ),
                   ),
                   child: Image.asset(
-                    'images/aoi_n_sleep.png',
+                    aoi,
                     width: 200,
                     height: 500,
                     fit: BoxFit.cover,

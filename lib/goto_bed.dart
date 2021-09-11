@@ -40,16 +40,35 @@ class _GoToSleepPageState extends State<GoToSleepPage>
           Row(
             children: [
               Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(width: 20),
+                  SizedBox(height: 300),
+                  Text(
+                    '起きるデッドラインの設定',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 10),
                   GestureDetector(
-                    child: Text(
-                      time.hour.toString() + '：' + time.minute.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 45,
-                        fontWeight: FontWeight.w800,
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white38),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Text(
+                          time.hour.toString() + '：' + time.minute.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
                       ),
                     ),
                     onTap: () async {
@@ -89,7 +108,7 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                   SizedBox(height: 100.0),
                 ],
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 10),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -102,8 +121,8 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                     ),
                     child: Image.asset(
                       'images/aoi_a.png',
-                      width: 150,
-                      height: 500,
+                      width: 180,
+                      height: 580,
                       fit: BoxFit.cover,
                     ),
                   ),
