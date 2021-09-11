@@ -75,7 +75,7 @@ class _SleepPageState extends State<SleepPage>
                     ),
                   ),
                   child: Image.asset(
-                    'images/aka_n_sleep.png',
+                    'images/aoi_n_sleep.png',
                     width: 200,
                     height: 500,
                     fit: BoxFit.cover,

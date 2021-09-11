@@ -1,5 +1,6 @@
 import 'package:fix_tyop/sleep.dart';
 import 'package:flutter/material.dart';
+import 'get_up.dart';
 import 'start_up.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: StartUpPage(title: 'めいんページ'),
+      home: GetUpPage(title: 'めいんページ'),
     );
   }
 }

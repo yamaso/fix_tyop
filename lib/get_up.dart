@@ -1,22 +1,25 @@
+import 'dart:async';
+
 import 'package:fix_tyop/services/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fix_tyop/playSound.dart';
 
-class GoToSleepPage extends StatefulWidget {
-  GoToSleepPage({Key? key, required this.title}) : super(key: key);
+class GetUpPage extends StatefulWidget {
+  GetUpPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _GoToSleepPageState createState() => _GoToSleepPageState();
+  _GetUpPageState createState() => _GetUpPageState();
 }
 
-class _GoToSleepPageState extends State<GoToSleepPage>
+class _GetUpPageState extends State<GetUpPage>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late DateTime time;
   late PlaySound ps;
+  var aoi = 'images/aoi_a_ki.png';
 
   @override
   void initState() {
@@ -27,6 +30,9 @@ class _GoToSleepPageState extends State<GoToSleepPage>
       vsync: this,
       duration: const Duration(milliseconds: 2000),
     )..repeat(reverse: true);
+    Future(() async {
+      Timer(const Duration(seconds: 30), () {});
+    });
   }
 
   @override
@@ -86,7 +92,7 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                       ),
                     ),
                     child: Image.asset(
-                      'images/aoi_a.png',
+                      aoi,
                       width: 150,
                       height: 480,
                       fit: BoxFit.cover,
