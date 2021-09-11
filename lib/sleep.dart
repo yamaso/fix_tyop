@@ -96,6 +96,7 @@ class _SleepPageState extends State<SleepPage>
                     fit: BoxFit.cover,
                   ),
                 ),
+                SizedBox(height: 10),
                 Text(
                   'デッドライン【' +
                       widget.deadLine.hour.toString() +
