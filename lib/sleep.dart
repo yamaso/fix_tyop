@@ -18,12 +18,16 @@ class _SleepPageState extends State<SleepPage>
   late AnimationController animationController;
   late DateTime time;
   AudioCache _player = AudioCache();
+  late AudioPlayer _ap;
 
   @override
   void initState() {
     super.initState();
     time = DateTime.now();
-    _player.loop('lib/assets/sleep.mp3');
+    Future(() async {
+      _ap = await _player.loop('sleep.mp3');
+      await _ap.setVolume(0.4);
+    });
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
