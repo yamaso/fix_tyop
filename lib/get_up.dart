@@ -23,7 +23,6 @@ class _GetUpPageState extends State<GetUpPage>
 
   @override
   void initState() {
-    super.initState();
     time = DateTime.now();
     ps = PlaySound();
     animationController = AnimationController(
@@ -32,10 +31,11 @@ class _GetUpPageState extends State<GetUpPage>
     )..repeat(reverse: true);
     Future(() async {
       await PlaySound.playSound("MONDAY", 2);
+      Timer(const Duration(seconds: 60), () async {
+        await PlaySound.playSound2("MONDAY", 3);
+      });
     });
-    Timer(const Duration(seconds: 60), () async {
-      await PlaySound.playSound2("MONDAY", 3);
-    });
+    super.initState();
   }
 
   @override
@@ -118,11 +118,5 @@ class _GetUpPageState extends State<GetUpPage>
       currentTime: _currentTime,
       locale: LocaleType.jp,
     ).then((time) => time ?? _currentTime);
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
   }
 }

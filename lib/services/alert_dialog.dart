@@ -22,7 +22,7 @@ class AlermDialog {
         return AlertDialog(
           title: const Text(
             'アラーム！',
-            style: TextStyle(color: Color(color)),
+            style: TextStyle(color: Colors.black54),
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
