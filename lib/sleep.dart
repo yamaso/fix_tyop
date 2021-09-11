@@ -17,13 +17,15 @@ class _SleepPageState extends State<SleepPage>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late DateTime time;
-  AudioCache _player = AudioCache();
+  AudioPlayer _player = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
     time = DateTime.now();
-    _player.loop('sleep.mp3');
+    Future(() async {
+      _player.play('sleep.mp3', isLocal: true, volume: 0.5);
+    });
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
