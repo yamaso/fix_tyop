@@ -33,6 +33,7 @@ class _SleepPageState extends State<SleepPage>
       duration: const Duration(milliseconds: 2000),
     )..repeat(reverse: true);
     Timer.periodic(Duration(seconds: 30), _onTimer);
+    Timer.periodic(Duration(minutes: 45), (timer) {});
   }
 
   void _onTimer(Timer timer) {
