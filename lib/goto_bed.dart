@@ -1,6 +1,11 @@
 import 'package:fix_tyop/services/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:fix_tyop/playSound.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:just_audio/just_audio.dart';
+import 'package:path_provider/path_provider.dart';
 
 class GoToSleepPage extends StatefulWidget {
   GoToSleepPage({Key? key, required this.title}) : super(key: key);
@@ -15,11 +20,13 @@ class _GoToSleepPageState extends State<GoToSleepPage>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late DateTime time;
+  late PlaySound ps;
 
   @override
   void initState() {
     super.initState();
     time = DateTime.now();
+    ps = PlaySound();
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
@@ -64,7 +71,9 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                         CircleBorder(),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await PlaySound.playSound("MONDAY", 0);
+                    },
                   ),
                   SizedBox(height: 100.0),
                 ],
