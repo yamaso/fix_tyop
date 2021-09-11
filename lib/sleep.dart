@@ -81,7 +81,7 @@ class _SleepPageState extends State<SleepPage>
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                SizedBox(height: 60),
+                SizedBox(height: 40),
                 ScaleTransition(
                   scale: animationController.drive(
                     Tween<double>(
@@ -96,7 +96,7 @@ class _SleepPageState extends State<SleepPage>
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 Text(
                   'デッドライン【' +
                       widget.deadLine.hour.toString() +
