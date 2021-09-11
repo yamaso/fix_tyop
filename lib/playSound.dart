@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 class PlaySound {
   static void playSound(String dayOfWeek, int order) async {
     Uri url = Uri.parse("いい感じURL?dayOfWeeek=$dayOfWeek&order=$order");
-    http.Response resp = await http.get(url);
+    Map<String, String> headers = {'content-type': 'audio/mpeg'};
+    http.Response resp = await http.get(url, headers: headers);
     if (resp.statusCode != 200) {
       print("hogehgehgoafl;kdsjfkldsa");
     }
