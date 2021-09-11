@@ -1,8 +1,9 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:fix_tyop/services/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'dart:async';
+import 'package:fix_tyop/playSound.dart';
+import 'package:just_audio/just_audio.dart';
 
 class SleepPage extends StatefulWidget {
   SleepPage({Key? key, required this.title}) : super(key: key);
@@ -24,8 +25,12 @@ class _SleepPageState extends State<SleepPage>
     super.initState();
     time = DateTime.now();
     Future(() async {
-      await _player.play('sleep.mp3', isLocal: true, volume: 0.5);
-      Timer.periodic(Duration(minutes: 45), (timer) {});
+      await _player.setAsset('assets/sleep.mp3');
+      await _player.setVolume(0.5);
+      _player.play();
+      Timer.periodic(Duration(seconds: 30), (timer) async {
+        await PlaySound.playSound("MONDAY", 1);
+      });
     });
     animationController = AnimationController(
       vsync: this,
