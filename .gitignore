@@ -53,3 +53,8 @@ app.*.map.json
 ### Firebase Patch ###
 .runtimeconfig.json
 .firebase/
+
+### added
+android/local.properties
+android/.*
+android/app/.*
