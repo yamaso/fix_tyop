@@ -65,7 +65,7 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                     style: ElevatedButton.styleFrom(
                       onPrimary: Colors.black,
                       shape: const CircleBorder(),
-                      elevation: 30.0,
+                      elevation: 10.0,
                     ),
                     onPressed: () async {
                       await PlaySound.playSound("MONDAY", 0);
