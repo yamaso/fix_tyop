@@ -37,12 +37,7 @@ class AlermDialog {
                 child: const Text('アラームOFF'),
                 onPressed: () {
                   _player.stop();
-                  Navigator.of(context).pushAndRemoveUntil(
-                      PageTransition(
-                        child: GetUpPage(deadLine: deadLine),
-                        type: PageTransitionType.bottomToTop,
-                      ),
-                      (_) => false);
+                  Navigator.of(context).pop();
                 },
               ),
             ],

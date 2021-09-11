@@ -31,7 +31,10 @@ class _GetUpPageState extends State<GetUpPage>
       duration: const Duration(milliseconds: 2000),
     )..repeat(reverse: true);
     Future(() async {
-      Timer(const Duration(seconds: 30), () {});
+      await PlaySound.playSound("MONDAY", 2);
+    });
+    Timer(const Duration(seconds: 60), () async {
+      await PlaySound.playSound2("MONDAY", 3);
     });
   }
 
@@ -115,5 +118,11 @@ class _GetUpPageState extends State<GetUpPage>
       currentTime: _currentTime,
       locale: LocaleType.jp,
     ).then((time) => time ?? _currentTime);
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 }

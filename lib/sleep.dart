@@ -5,6 +5,9 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'dart:async';
 import 'package:fix_tyop/playSound.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:page_transition/page_transition.dart';
+
+import 'get_up.dart';
 
 class SleepPage extends StatefulWidget {
   SleepPage({Key? key, required this.deadLine}) : super(key: key);
@@ -57,7 +60,13 @@ class _SleepPageState extends State<SleepPage>
     var now = DateTime.now();
     if (now.difference(widget.deadLine).inMinutes <= 60) {
       _player.stop();
-      AlermDialog.show(context, widget.deadLine);
+      await AlermDialog.show(context, widget.deadLine);
+      Navigator.of(context).pushAndRemoveUntil(
+          PageTransition(
+            child: GetUpPage(deadLine: widget.deadLine),
+            type: PageTransitionType.bottomToTop,
+          ),
+          (_) => false);
     }
     setState(() {
       time = now;
