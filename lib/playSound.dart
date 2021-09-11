@@ -4,10 +4,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 class PlaySound {
-  static void playSound(String dayOfWeek, int order) async {
-    Uri url = Uri.parse("いい感じURL?dayOfWeeek=$dayOfWeek&order=$order");
+  static Future<void> playSound(String dayOfWeek, int order) async {
+    Uri url = Uri.parse(
+        "https://app.fuji8.me/audios?dayOfWeek=$dayOfWeek&order=$order");
     Map<String, String> headers = {'content-type': 'audio/mpeg'};
     http.Response resp = await http.get(url, headers: headers);
+    print(resp.statusCode);
     if (resp.statusCode != 200) {
       print("hogehgehgoafl;kdsjfkldsa");
     }

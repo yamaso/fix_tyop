@@ -72,7 +72,7 @@ class _GoToSleepPageState extends State<GoToSleepPage>
                       ),
                     ),
                     onPressed: () async {
-                      await PlaySound.playSound("Monday", 0);
+                      await PlaySound.playSound("MONDAY", 0);
                     },
                   ),
                   SizedBox(height: 100.0),
