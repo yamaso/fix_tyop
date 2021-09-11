@@ -123,8 +123,7 @@ class _SendAllNightUserComplaintPageState
   }
 
   void _registDialoges(String dayOfWeek, int order, String dialogue) async {
-    Uri url = Uri.parse(
-        "http://192.168.0.9:1234/dialogues?dayOfWeeek=$dayOfWeek&order=$order");
+    Uri url = Uri.parse("/dialogues?dayOfWeeek=$dayOfWeek&order=$order");
     Map<String, String> headers = {'content-type': 'application/json'};
     String body = json.encode({'dialogue': dialogue});
 
