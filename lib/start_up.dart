@@ -26,7 +26,7 @@ class _StartUpPageState extends State<StartUpPage>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.fromLTRB(48, 136, 16, 64),
+                  margin: EdgeInsets.fromLTRB(32, 136, 0, 64),
                   child: Container(
                       width: 336,
                       height: 280,
