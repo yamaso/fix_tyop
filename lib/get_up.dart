@@ -50,7 +50,7 @@ class _GetUpPageState extends State<GetUpPage>
     if (now.difference(widget.deadLine).inMinutes <= 5) {
       await PlaySound.playSound("MONDAY", 4);
       setState(() {
-        aoi = 'image/aoi_a.png';
+        aoi = 'images/aoi_a.png';
       });
       await AlermDialog.show(context, widget.deadLine);
       new Timer(const Duration(seconds: 20), () async {
