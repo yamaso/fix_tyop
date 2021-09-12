@@ -39,13 +39,13 @@ class _GetUpPageState extends State<GetUpPage>
         await PlaySound.playSound2("MONDAY", 3);
       });
     });
-    Timer.periodic(Duration(seconds: 10), _onTimer);
+    Timer.periodic(Duration(seconds: 30), _onTimer);
   }
 
   void _onTimer(Timer timer) async {
     var now = DateTime.now();
     if (now.difference(widget.deadLine).inMinutes <= 5) {
-      AlermDialog.show(context, widget.deadLine);
+      await AlermDialog.show(context, widget.deadLine);
       Timer(const Duration(seconds: 20), () async {
         await PlaySound.playSound("MONDAY", 5);
       });
