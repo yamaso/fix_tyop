@@ -26,10 +26,17 @@ class _StartUpPageState extends State<StartUpPage>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 160,
-                  ),
-                  child: Text('Title的な'),
+                  margin: EdgeInsets.fromLTRB(32, 136, 0, 64),
+                  child: Container(
+                      width: 336,
+                      height: 280,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage("images/logo.png"),
+                        ),
+                      )
+                  )
                 ),
                 getOutlinedButton(0x7a9cbaff, '寝る', () {
                   Navigator.of(context).pushAndRemoveUntil(
