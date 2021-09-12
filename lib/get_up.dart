@@ -35,8 +35,11 @@ class _GetUpPageState extends State<GetUpPage>
     )..repeat(reverse: true);
     Future(() async {
       await PlaySound.playSound("MONDAY", 2);
-      Timer(const Duration(seconds: 20), () async {
+      new Timer(const Duration(seconds: 20), () async {
         await PlaySound.playSound2("MONDAY", 3);
+        setState(() {
+          aoi = 'images/aoi_n_sad.png';
+        });
       });
     });
     Timer.periodic(Duration(seconds: 30), _onTimer);
@@ -85,7 +88,7 @@ class _GetUpPageState extends State<GetUpPage>
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           fit: BoxFit.fill,
-                          image: AssetImage("images/sleep_button.png"),
+                          image: AssetImage("images/sun_button.png"),
                         ),
                       ),
                     ),
@@ -99,7 +102,8 @@ class _GetUpPageState extends State<GetUpPage>
                       Navigator.of(context).pushAndRemoveUntil(
                           PageTransition(
                             child: StartUpPage(title: ''),
-                            type: PageTransitionType.bottomToTop,
+                            type: PageTransitionType.fade,
+                            duration: const Duration(milliseconds: 4000),
                           ),
                           (_) => false);
                     },
