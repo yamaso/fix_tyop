@@ -103,7 +103,7 @@ class _GetUpPageState extends State<GetUpPage>
                     onPressed: () async {
                       await PlaySound.playSound("MONDAY", 6);
                       setState(() {
-                        aoi = 'iamges/aoi_a_ki.png';
+                        aoi = 'images/aoi_a_ki.png';
                       });
                       Navigator.of(context).pushAndRemoveUntil(
                           PageTransition(
