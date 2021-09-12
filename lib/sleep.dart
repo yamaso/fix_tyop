@@ -37,7 +37,7 @@ class _SleepPageState extends State<SleepPage>
       Timer(const Duration(seconds: 6), () {
         _player.play();
       });
-      _timer = Timer.periodic(Duration(seconds: 20), (timer) async {
+      _timer = new Timer.periodic(Duration(seconds: 20), (timer) async {
         await PlaySound.playSound("MONDAY", 1);
         setState(() {
           aoi = 'images/aoi_e_sleep.png';
