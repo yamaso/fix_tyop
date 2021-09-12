@@ -1,7 +1,6 @@
 import 'package:fix_tyop/services/alert_dialog.dart';
 import 'package:fix_tyop/services/background.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'dart:async';
 import 'package:fix_tyop/playSound.dart';
 import 'package:just_audio/just_audio.dart';
@@ -23,6 +22,7 @@ class _SleepPageState extends State<SleepPage>
   late AnimationController animationController;
   late DateTime time;
   AudioPlayer _player = AudioPlayer();
+  var _timer;
 
   var aoi = 'images/aoi_n_sleep.png';
 
@@ -37,7 +37,7 @@ class _SleepPageState extends State<SleepPage>
       Timer(const Duration(seconds: 6), () {
         _player.play();
       });
-      Timer.periodic(Duration(seconds: 20), (timer) async {
+      _timer = Timer.periodic(Duration(seconds: 20), (timer) async {
         await PlaySound.playSound("MONDAY", 1);
         setState(() {
           aoi = 'images/aoi_e_sleep.png';
@@ -130,6 +130,7 @@ class _SleepPageState extends State<SleepPage>
 
   @override
   void dispose() {
+    _timer.cancel();
     _player.dispose();
     animationController.dispose();
     super.dispose();

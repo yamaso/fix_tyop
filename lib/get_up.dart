@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:fix_tyop/services/alert_dialog.dart';
 import 'package:fix_tyop/services/background.dart';
+import 'package:fix_tyop/start_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fix_tyop/playSound.dart';
+import 'package:page_transition/page_transition.dart';
 
 class GetUpPage extends StatefulWidget {
   GetUpPage({Key? key, required this.deadLine}) : super(key: key);
@@ -23,6 +26,7 @@ class _GetUpPageState extends State<GetUpPage>
 
   @override
   void initState() {
+    super.initState();
     time = DateTime.now();
     ps = PlaySound();
     animationController = AnimationController(
@@ -31,11 +35,24 @@ class _GetUpPageState extends State<GetUpPage>
     )..repeat(reverse: true);
     Future(() async {
       await PlaySound.playSound("MONDAY", 2);
-      Timer(const Duration(seconds: 60), () async {
+      Timer(const Duration(seconds: 20), () async {
         await PlaySound.playSound2("MONDAY", 3);
       });
     });
-    super.initState();
+    Timer.periodic(Duration(seconds: 10), _onTimer);
+  }
+
+  void _onTimer(Timer timer) async {
+    var now = DateTime.now();
+    if (now.difference(widget.deadLine).inMinutes <= 5) {
+      AlermDialog.show(context, widget.deadLine);
+      Timer(const Duration(seconds: 20), () async {
+        await PlaySound.playSound("MONDAY", 5);
+      });
+    }
+    setState(() {
+      time = now;
+    });
   }
 
   @override
@@ -48,7 +65,7 @@ class _GetUpPageState extends State<GetUpPage>
           Row(
             children: [
               Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(width: 20),
                   Text(
@@ -78,7 +95,13 @@ class _GetUpPageState extends State<GetUpPage>
                       elevation: 30.0,
                     ),
                     onPressed: () async {
-                      await PlaySound.playSound("MONDAY", 0);
+                      await PlaySound.playSound("MONDAY", 6);
+                      Navigator.of(context).pushAndRemoveUntil(
+                          PageTransition(
+                            child: StartUpPage(title: ''),
+                            type: PageTransitionType.bottomToTop,
+                          ),
+                          (_) => false);
                     },
                   ),
                   SizedBox(height: 100.0),
@@ -97,8 +120,8 @@ class _GetUpPageState extends State<GetUpPage>
                     ),
                     child: Image.asset(
                       aoi,
-                      width: 150,
-                      height: 480,
+                      width: 180,
+                      height: 580,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -109,14 +132,5 @@ class _GetUpPageState extends State<GetUpPage>
         ],
       ),
     );
-  }
-
-  static Future<DateTime> timer(BuildContext context, DateTime _currentTime) {
-    return DatePicker.showTimePicker(
-      context,
-      showSecondsColumn: false,
-      currentTime: _currentTime,
-      locale: LocaleType.jp,
-    ).then((time) => time ?? _currentTime);
   }
 }
