@@ -52,7 +52,9 @@ class _GetUpPageState extends State<GetUpPage>
       setState(() {
         aoi = 'images/aoi_a.png';
       });
-      await AlermDialog.show(context, widget.deadLine);
+      new Timer(const Duration(seconds: 6), () async {
+        await AlermDialog.show(context, widget.deadLine);
+      });
       new Timer(const Duration(seconds: 20), () async {
         await PlaySound.playSound("MONDAY", 5);
         setState(() {
