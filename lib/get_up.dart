@@ -51,6 +51,9 @@ class _GetUpPageState extends State<GetUpPage>
       await AlermDialog.show(context, widget.deadLine);
       Timer(const Duration(seconds: 20), () async {
         await PlaySound.playSound("MONDAY", 5);
+        setState(() {
+          aoi = 'images/aoi_a_do.png';
+        });
       });
     }
     setState(() {
@@ -99,6 +102,9 @@ class _GetUpPageState extends State<GetUpPage>
                     ),
                     onPressed: () async {
                       await PlaySound.playSound("MONDAY", 6);
+                      setState(() {
+                        aoi = 'iamges/aoi_a_ki.png';
+                      });
                       Navigator.of(context).pushAndRemoveUntil(
                           PageTransition(
                             child: StartUpPage(title: ''),
