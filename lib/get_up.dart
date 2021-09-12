@@ -48,6 +48,7 @@ class _GetUpPageState extends State<GetUpPage>
   void _onTimer(Timer timer) async {
     var now = DateTime.now();
     if (now.difference(widget.deadLine).inMinutes <= 5) {
+      await PlaySound.playSound("MONDAY", 4);
       await AlermDialog.show(context, widget.deadLine);
       Timer(const Duration(seconds: 20), () async {
         await PlaySound.playSound("MONDAY", 5);
