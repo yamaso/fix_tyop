@@ -42,7 +42,7 @@ class _GetUpPageState extends State<GetUpPage>
         });
       });
     });
-    Timer.periodic(Duration(seconds: 30), _onTimer);
+    Timer.periodic(Duration(seconds: 35), _onTimer);
   }
 
   void _onTimer(Timer timer) async {
@@ -50,7 +50,7 @@ class _GetUpPageState extends State<GetUpPage>
     if (now.difference(widget.deadLine).inMinutes <= 5) {
       await PlaySound.playSound("MONDAY", 4);
       await AlermDialog.show(context, widget.deadLine);
-      Timer(const Duration(seconds: 20), () async {
+      new Timer(const Duration(seconds: 20), () async {
         await PlaySound.playSound("MONDAY", 5);
         setState(() {
           aoi = 'images/aoi_a_do.png';
