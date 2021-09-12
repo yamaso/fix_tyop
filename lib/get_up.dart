@@ -42,7 +42,7 @@ class _GetUpPageState extends State<GetUpPage>
         });
       });
     });
-    Timer.periodic(Duration(seconds: 35), _onTimer);
+    new Timer.periodic(Duration(seconds: 35), _onTimer);
   }
 
   void _onTimer(Timer timer) async {
