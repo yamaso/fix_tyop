@@ -39,7 +39,8 @@ class _StartUpPageState extends State<StartUpPage>
                     (_) => false,
                   );
                 }),
-                getOutlinedButton(0x7a9cbaff, '寝ない', () {
+                SizedBox(height: 7.0),
+                getOutlinedButton(0x7a9cbaff, '寝られない', () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) =>

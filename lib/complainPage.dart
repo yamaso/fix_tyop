@@ -1,3 +1,4 @@
+import 'package:fix_tyop/start_up.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -33,14 +34,17 @@ class _SendAllNightUserComplaintPageState
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFF2C344F),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.grey),
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           'ねれない人が悲しむ場所',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.white70,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF1D213F),
       ),
       body: GestureDetector(
         onTap: () {
@@ -53,7 +57,7 @@ class _SendAllNightUserComplaintPageState
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Center(
                 child: Container(
-                  color: Colors.white,
+                  color: Color(0xFF2C344F),
                   padding: EdgeInsets.all(20.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -61,22 +65,35 @@ class _SendAllNightUserComplaintPageState
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
-                        '言いたいこと',
+                        'あまえんぼうに言いたいこと',
                         style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white70,
                         ),
                       ),
+                      SizedBox(height: 8.0),
                       TextFormField(
                         controller: complaintTextController,
                         style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w400,
+                          color: Colors.white54,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500,
                         ),
-                        maxLength: 20,
+                        maxLength: 140,
+                        maxLines: 10,
+                        minLines: 1,
                         decoration: InputDecoration(
-                          hintText: 'おきろや',
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white54,
+                            ),
+                          ),
+                          hintText: '(例)こっちは徹夜なのに, 起きんかい！',
+                          hintStyle: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.white54,
+                              fontWeight: FontWeight.w400),
                         ),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
@@ -93,8 +110,8 @@ class _SendAllNightUserComplaintPageState
                                 ? submitPressed
                                 : null,
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
-                              onPrimary: Colors.white,
+                              primary: Colors.white70,
+                              onPrimary: Colors.grey,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -124,7 +141,7 @@ class _SendAllNightUserComplaintPageState
 
   void _registDialoges(String dayOfWeek, int order, String dialogue) async {
     Uri url = Uri.parse(
-        "https://app.fuji8.me/dialogues?dayOfWeeek=$dayOfWeek&order=$order");
+        "https://app.fuji8.me/dialogues?dayOfWeek=$dayOfWeek&order=$order");
     Map<String, String> headers = {'content-type': 'application/json'};
     String body = json.encode({'dialogue': dialogue});
 
@@ -143,6 +160,11 @@ class _SendAllNightUserComplaintPageState
       });
 
       _registDialoges("MONDAY", 5, complaintTextController.text);
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => StartUpPage(title: 'GoToSleep')),
+        (_) => false,
+      );
 
       _loading = false;
     }

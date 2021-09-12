@@ -1,9 +1,12 @@
+import 'package:fix_tyop/services/alert_dialog.dart';
 import 'package:fix_tyop/services/background.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'dart:async';
 import 'package:fix_tyop/playSound.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:page_transition/page_transition.dart';
+
+import 'get_up.dart';
 
 class SleepPage extends StatefulWidget {
   SleepPage({Key? key, required this.deadLine}) : super(key: key);
@@ -19,6 +22,7 @@ class _SleepPageState extends State<SleepPage>
   late AnimationController animationController;
   late DateTime time;
   AudioPlayer _player = AudioPlayer();
+  var _timer;
 
   var aoi = 'images/aoi_n_sleep.png';
 
@@ -33,7 +37,7 @@ class _SleepPageState extends State<SleepPage>
       Timer(const Duration(seconds: 6), () {
         _player.play();
       });
-      Timer.periodic(Duration(seconds: 20), (timer) async {
+      _timer = Timer.periodic(Duration(seconds: 20), (timer) async {
         await PlaySound.playSound("MONDAY", 1);
         setState(() {
           aoi = 'images/aoi_e_sleep.png';
@@ -52,10 +56,17 @@ class _SleepPageState extends State<SleepPage>
     Timer.periodic(Duration(seconds: 30), _onTimer);
   }
 
-  void _onTimer(Timer timer) {
+  void _onTimer(Timer timer) async {
     var now = DateTime.now();
     if (now.difference(widget.deadLine).inMinutes <= 60) {
-      print("アラーム");
+      _player.stop();
+      await AlermDialog.show(context, widget.deadLine);
+      Navigator.of(context).pushAndRemoveUntil(
+          PageTransition(
+            child: GetUpPage(deadLine: widget.deadLine),
+            type: PageTransitionType.bottomToTop,
+          ),
+          (_) => false);
     }
     setState(() {
       time = now;
@@ -117,18 +128,9 @@ class _SleepPageState extends State<SleepPage>
     );
   }
 
-  static Future<DateTime> timer(BuildContext context, DateTime _currentTime) {
-    return DatePicker.showTimePicker(
-      context,
-      showSecondsColumn: false,
-      currentTime: _currentTime,
-      locale: LocaleType.jp,
-    ).then((time) => time ?? _currentTime);
-  }
-
   @override
   void dispose() {
-    _player.stop();
+    _timer.cancel();
     _player.dispose();
     animationController.dispose();
     super.dispose();
